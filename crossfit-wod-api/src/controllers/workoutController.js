@@ -11,8 +11,29 @@ const getOneWorkout = (req, res) => {
 };
 
 const createNewWorkout = (req, res) => {
-	const createdWorkout = workoutService.createNewWorkouts();
-	res.send('Create a new workout');
+	const { body } = req;
+
+	if (
+		!body.name ||
+		!body.mode ||
+		!body.equipment ||
+		!body.excercises ||
+		!body.trainerTips
+	) {
+		return;
+	}
+
+	const newWorkout = {
+		name: body.name,
+		mode: body.mode,
+		equipment: body.equipment,
+		excercises: body.exercises,
+		trainerTips: body.trainerTips,
+	};
+
+	const createdWorkout = workoutService.createNewWorkouts(newWorkout);
+
+	res.status(201).send({ status: 'OK', data: createdWorkout }); // 201 Created : The request has been fulfilled, resulting in the creation of a new resource.[9]
 };
 
 const updateWorkout = (req, res) => {
