@@ -6,9 +6,7 @@ const getAllWorkouts = () => {
 };
 
 const getOneWorkout = (workoutId) => {
-	const workout = DB.workouts.findIndex(
-		(workout) => workout.id === workoutId
-	);
+	const workout = DB.workouts.find((workout) => workout.id === workoutId);
 	if (!workout) {
 		return;
 	}
@@ -21,8 +19,13 @@ const createNewWorkout = (newWorkout) => {
 		-1;
 
 	if (isAlreadyAdded) {
+		throw {
+			status: 400,
+			message: `Workout with the name ${newWorkout.name} is exists`,
+		};
 		return;
 	}
+
 	DB.workouts.push(newWorkout);
 
 	saveToDatebase();
@@ -32,11 +35,23 @@ const createNewWorkout = (newWorkout) => {
 
 const updateOneWorkout = (workoutId, changes) => {
 	const indexForUpdate =
-		DB.workouts.findIndex((workout) => workout.name === newWorkout.name) >
-		-1;
-	if (isAlreadyAdded) {
+		DB.workouts.findIndex((workout) => workout.Id === newWorkout.Id) > -1;
+
+	if (indexForUpdate === -1) {
 		return;
 	}
+
+	const updateWorkout = {
+		...DB.workouts[indexForUpdate],
+		...changes,
+		updateAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' }),
+	};
+
+	DB.workouts[indexForUpdate] = updateWorkout;
+
+	saveToDatebase();
+
+	return updateWorkout;
 };
 
 module.exports = { getAllWorkouts, createNewWorkout };
