@@ -23,14 +23,17 @@ const createNewWorkout = (newWorkout) => {
 			status: 400,
 			message: `Workout with the name ${newWorkout.name} is exists`,
 		};
-		return;
 	}
 
-	DB.workouts.push(newWorkout);
+	try {
+		DB.workouts.push(newWorkout);
 
-	saveToDatebase();
+		saveToDatebase();
 
-	return newWorkout;
+		return newWorkout;
+	} catch (error) {
+		throw { status: 500, message: error?.message || error };
+	}
 };
 
 const updateOneWorkout = (workoutId, changes) => {

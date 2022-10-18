@@ -1,8 +1,15 @@
 const workoutService = require('../services/workoutService');
 
 const getAllWorkouts = (req, res) => {
-	const allWorkouts = workoutService.getAllWorkouts();
-	res.send({ status: 'OK', data: allWorkouts });
+	try {
+		const allWorkouts = workoutService.getAllWorkouts();
+		res.send({ status: 'OK', data: allWorkouts });
+	} catch (error) {
+		res.status(error?.status || 500).send({
+			status: 'FAILED',
+			data: { error: error?.message || error },
+		});
+	}
 };
 
 const getOneWorkout = (req, res) => {
@@ -10,10 +17,21 @@ const getOneWorkout = (req, res) => {
 		params: { workoutId },
 	} = req;
 	if (!workoutId) {
-		return;
+		// 400 Bad Request: The server cannot or will not precess the request due to an apparent client error
+		res.status(400).send({
+			status: 'FAILED',
+			data: { error: "Parameter : 'workoutId' can not be empty" },
+		});
 	}
-	const workout = workoutService.getOneWorkouts();
-	res.send({ status: 'OK', data: workout });
+	try {
+		const workout = workoutService.getOneWorkout(workoutId);
+		res.send({ status: 'OK', data: workout });
+	} catch (error) {
+		res.status(error?.status || 500).send({
+			status: 'FAILED',
+			data: { error: error?.message || error },
+		});
+	}
 };
 
 const createNewWorkout = (req, res) => {
@@ -26,6 +44,7 @@ const createNewWorkout = (req, res) => {
 		!body.excercises ||
 		!body.trainerTips
 	) {
+		// 400 Bad Request: The server cannot or will not precess the request due to an apparent client error
 		res.status(400).send({
 			status: 'FAILED',
 			data: {
@@ -42,10 +61,16 @@ const createNewWorkout = (req, res) => {
 		excercises: body.exercises,
 		trainerTips: body.trainerTips,
 	};
-
-	const createdWorkout = workoutService.createNewWorkouts(newWorkout);
-
-	res.status(201).send({ status: 'OK', data: createdWorkout }); // 201 Created : The request has been fulfilled, resulting in the creation of a new resource.[9]
+	try {
+		const createdWorkout = workoutService.createNewWorkout(newWorkout); // 201 Created : The request has been fulfilled, resulting in the creation of a new resource.[9]
+		res.status(201).send({ status: 'OK', data: createNewWorkout });
+	} catch (error) {
+		// 500 Internal Server Error : A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.
+		res.status(error?.status || 500).send({
+			status: 'FAILED',
+			data: { error: error?.message || error },
+		});
+	}
 };
 
 const updateOneWorkout = (req, res) => {
