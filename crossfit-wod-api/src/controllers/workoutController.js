@@ -80,11 +80,20 @@ const updateOneWorkout = (req, res) => {
 	} = req;
 
 	if (!workoutId) {
-		return;
+		res.status(400).send({
+			status: 'FAILED',
+			data: { error: "Parameter ':workoutId' can not be empty" },
+		});
 	}
-
-	const updateWorkout = workoutService.updateOneWorkouts();
-	res.send('Update an existing workout');
+	try {
+		const updateWorkout = workoutService.updateOneWorkouts();
+		res.send('Update an existing workout');
+	} catch (error) {
+		res.status(error?.status || 500).send({
+			status: 'FAILED',
+			data: { error: error?.message || error },
+		});
+	}
 };
 
 const deleteWorkout = (req, res) => {
@@ -93,17 +102,26 @@ const deleteWorkout = (req, res) => {
 	} = req;
 
 	if (!workoutId) {
-		return;
+		res.status(400).send({
+			status: 'FAILED',
+			data: { error: error?.message || error },
+		});
 	}
-
-	workoutService.deteleOneWorkouts();
-	res.status(204).send({ status: 'OK' }); // 204 No content : The server successfully processed the request, and is not returning any content.
+	try {
+		workoutService.deteleOneWorkouts();
+		res.status(204).send({ status: 'OK' }); // 204 No content : The server successfully processed the request, and is not returning any content.
+	} catch (error) {
+		res.status(error?.status || 500).send({
+			status: 'FAILED',
+			data: { error: error?.message || error },
+		});
+	}
 };
 
 module.exports = {
 	getAllWorkouts,
 	getOneWorkout,
 	createNewWorkout,
-	updateWorkout,
+	updateOneWorkout,
 	deleteWorkout,
 };
