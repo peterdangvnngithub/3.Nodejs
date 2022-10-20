@@ -10,18 +10,18 @@ const getAllWorkouts = () => {
 	}
 };
 
-const getOneWorkouts = (workoutId) => {
+const getOneWorkout = (workoutId) => {
 	try {
-		const workout = Workout.getOneWorkouts(workoutId);
+		const workout = Workout.getOneWorkout(workoutId);
 		return workout;
 	} catch (error) {
 		throw error;
 	}
 };
 
-const createNewWorkouts = () => {
+const createNewWorkout = () => {
 	const workoutToInsert = {
-		...createNewWorkouts,
+		...createNewWorkout,
 		id: uuid(),
 		createAt: new Date().toLocaleDateString('en-US', { timeZone: 'UTC' }),
 		updateAt: new Date().toLocaleDateString('en-US', { timeZone: 'UTC' }),
@@ -34,18 +34,18 @@ const createNewWorkouts = () => {
 	}
 };
 
-const updateOneWorkouts = (workoutId, changes) => {
+const updateOneWorkout = (workoutId, changes) => {
 	try {
-		const updatedWorkout = Workout.updateOneWorkouts(workoutId, changes);
+		const updatedWorkout = Workout.updateOneWorkout(workoutId, changes);
 		return updatedWorkout;
 	} catch (error) {
 		throw error;
 	}
 };
 
-const deteleOneWorkouts = (workoutId) => {
+const deteleOneWorkout = (workoutId) => {
 	try {
-		Workout.deteleOneWorkouts(workoutId);
+		Workout.deteleOneWorkout(workoutId);
 	} catch (error) {
 		throw error;
 	}
@@ -53,8 +53,8 @@ const deteleOneWorkouts = (workoutId) => {
 
 module.exports = {
 	getAllWorkouts,
-	getOneWorkouts,
-	createNewWorkouts,
-	updateOneWorkouts,
-	deteleOneWorkouts,
+	getOneWorkout,
+	createNewWorkout,
+	updateOneWorkout,
+	deteleOneWorkout,
 };
