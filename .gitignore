@@ -1,2 +1,3 @@
 crossfit-wod-api/node_modules
-jwt/node_modules
+jwt/Authorization/node_modules
+jwt/Authentication/node_modules
