@@ -1,1 +1,4 @@
 crossfit-wod-api/node_modules
+jwt/Authorization/node_modules
+jwt/Authentication/node_modules
+passportjs/username-password/node_modules
