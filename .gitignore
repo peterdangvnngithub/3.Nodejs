@@ -1,4 +1,6 @@
-crossfit-wod-api/node_modules
-jwt/Authorization/node_modules
-jwt/Authentication/node_modules
-complete-nodejs-course-udemy/notes-app/node_modules
+1-crossfit-wod-api/node_modules
+2-jwt/Authorization/node_modules
+2-jwt/Authentication/node_modules
+3-complete-nodejs-course-udemy/notes-app/node_modules
+4-connect-mongodb/node_modules
+5-notes-app/node_modules
