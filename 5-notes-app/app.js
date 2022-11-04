@@ -13,13 +13,18 @@ yargs.command({
 			demandOption: true,
 			type: 'string',
 		},
+		body: {
+			describe: 'Body title',
+			demandOption: true,
+			type: 'string',
+		},
 	},
 	handler: function (argv) {
-		console.log('Adding a new note!', argv);
+		console.log('Title: ' + argv.title, '.Body: ' + argv.body);
 	},
 });
 
-//Create remove command
+// Create remove command
 yargs.command({
 	command: 'remove',
 	describe: 'Remove a note',
@@ -45,6 +50,6 @@ yargs.command({
 		console.log('Reading a note');
 	},
 });
-// add, remove, read, list
 
+yargs.parse();
 //console.log(yargs.argv);
