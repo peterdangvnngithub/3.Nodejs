@@ -1,0 +1,19 @@
+@api = http://localhost:3000/workers
+
+GET {{api}}
+
+####
+GET http://localhost:3000/worker
+####
+
+POST {{api}} 
+Content-Type: application/json
+
+        {
+            "SHIFT_CODE" : "CA5",
+            "SHIFT_NAME" : "CA 5",
+            "FROM_1"     : "20221221",
+            "TO_1"       : "20221221",
+            "FROM_2"     : "20221221",
+            "TO_2"       : "20221222"
+        }
