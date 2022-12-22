@@ -2,4 +2,8 @@ export const queries = {
 	getAllShift: 'SELECT * FROM CA',
 	createNewShift:
 		'INSERT INTO CA (SHIFT_CODE,SHIFT_NAME,FROM_1,TO_1,FROM_2,TO_2) VALUES (@SHIFT_CODE, @SHIFT_NAME, @FROM_1, @TO_1, @FROM_2, @TO_2)',
+	getShiftById: 'SELECT * FROM CA WHERE SHIFT_CODE = @Id',
+	deleteShiftById: 'DELETE FROM CA WHERE SHIFT_CODE = @Id',
+	getTotalShifts: 'SELECT COUNT(*) AS TOTAL_SHIFT FROM CA',
+	updateShiftById: 'UPDATE CA SET SHIFT_NAME = @SHIFT_NAME WHERE SHIFT_CODE = @SHIFT_CODE',
 };

@@ -34,6 +34,57 @@ export const createNewWorker = async (req, res) => {
 };
 
 export const getShiftById = async (req, res) => {
-	const { id } = req.params;
-	res.send(id);
+	try {
+		const { id } = req.params;
+
+		const pool = await getConnection();
+		const result = await pool.request().input('Id', id).query(queries.getShiftById);
+
+		res.send(result.recordset[0]);
+	} catch (error) {
+		console.log(error.message);
+	}
+};
+
+export const getTotalShifts = async (req, res) => {
+	try {
+		const pool = await getConnection();
+		const result = await pool.request().query(queries.getTotalShifts);
+
+		res.send(result.recordset[0]);
+	} catch (error) {
+		console.log(error.message);
+	}
+};
+
+export const deleteShiftById = async (req, res) => {
+	try {
+		const { Id } = req.params;
+
+		const pool = await getConnection();
+		const result = await pool.request().input('Id', id).query(queries.deleteShiftById);
+		console.log(result.recordset[0]);
+
+		res.send(id);
+	} catch (error) {
+		console.log(error.message);
+	}
+};
+
+export const updateShiftById = async (req, res) => {
+	try {
+		const { SHIFT_CODE } = req.params;
+		const { SHIFT_NAME } = req.body;
+
+		const pool = await getConnection();
+		const result = await pool
+			.request()
+			.input('SHIFT_CODE', SHIFT_CODE)
+			.input('SHIFT_NAME', SHIFT_NAME)
+			.query(queries.updateShiftById);
+
+		res.send('OK');
+	} catch (error) {
+		console.log(error.message);
+	}
 };

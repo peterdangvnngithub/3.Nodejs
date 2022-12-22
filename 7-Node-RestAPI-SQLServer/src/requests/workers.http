@@ -3,17 +3,36 @@
 GET {{api}}
 
 ####
-GET http://localhost:3000/worker
-####
+GET {{api}}/CA4
 
-POST {{api}} 
+####
+POST {{api}}
 Content-Type: application/json
 
-        {
-            "SHIFT_CODE" : "CA5",
-            "SHIFT_NAME" : "CA 5",
-            "FROM_1"     : "20221221",
-            "TO_1"       : "20221221",
-            "FROM_2"     : "20221221",
-            "TO_2"       : "20221222"
-        }
+{
+    "SHIFT_CODE" : "CA5",
+    "SHIFT_NAME" : "CA 5",
+    "FROM_1"     : "20221221",
+    "TO_1"       : "20221221",
+    "FROM_2"     : "20221221",
+    "TO_2"       : "20221222"
+}
+
+####
+DELETE {{api}}
+Content-Type: application/json
+
+{
+    "Id" : "CA5"
+}
+
+####
+GET {{api}}/count
+
+####
+PUT {{api}}/CA4
+Content-Type: application/json
+
+{
+    "SHIFT_NAME" : "CA 5"
+}
